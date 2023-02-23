@@ -112,3 +112,20 @@ h1 {
 .todo-input-button:active {
   transform: scale(0.9);
 }
+
+.todo-item-container {
+  width: 98%;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background-color: whitesmoke;
+  margin: 10px;
+}
+
+.todo-item-info {
+  display: flex;
+  flex-direction: row;
+}
