@@ -19,13 +19,15 @@ export const handlers = [
   }),
 
   rest.put("/test", (req, res, ctx) => {
-    const todoList = localStorage.getItem("todoList");
+    const todoList = localStorage.getItem("todoList") ?? "[]";
 
-    // if (todoList) {
-    //   const newTodoList = JSON.parse(todoList).map((todo: TODO) => {
-    //     if (todo.date === JSON.parse(req))
-    //   });
-    // }
+    req.json().then((editedTodo: TODO) => {
+      const newTodoList = JSON.parse(todoList).map((todo: TODO) =>
+        todo.id === editedTodo.id ? editedTodo : todo
+      );
+      localStorage.setItem("todoList", JSON.stringify(newTodoList));
+    });
+
     return res(ctx.status(200));
   }),
 

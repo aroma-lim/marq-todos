@@ -1,6 +1,7 @@
 import { useState } from "react";
+import uuid from "react-uuid";
 import { TODO } from "../type/types";
-import { callApi } from "../util/api";
+import { callApiWithData } from "../util/api";
 
 export default function TodoInput() {
   const [todoValue, setTodoValue] = useState<string>("");
@@ -17,13 +18,14 @@ export default function TodoInput() {
         onClick={async () => {
           try {
             const newTodo: TODO = {
+              id: uuid(),
               title: todoValue,
               refer: [],
               done: false,
               createdDate: new Date().toLocaleDateString(),
               editedDate: new Date().toLocaleDateString(),
             };
-            await callApi({
+            await callApiWithData({
               url: "/test",
               method: "post",
               data: newTodo,
