@@ -57,11 +57,11 @@
   font-size: 20px;
   line-height: 25px;
   white-space: pre-wrap;
-  word-wrap:break-word;
+  word-wrap: break-word;
 }
 
 .fetch-result:after {
-  content: 'Fetch Result';
+  content: "Fetch Result";
   display: block;
   position: absolute;
   top: -23px;
@@ -73,4 +73,42 @@
   padding: 5px 10px;
   border-radius: 20px;
   border: 4px dashed mediumpurple;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 800px;
+  align-items: center;
+  height: 100vh;
+}
+
+h1 {
+  padding: 30px;
+  font-size: 50px;
+}
+
+.todo-input {
+  background-color: lightgoldenrodyellow;
+  border: none;
+  font-size: 15px;
+}
+
+.todo-input-container {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  width: 100%;
+  gap: 10px;
+  height: 40px;
+}
+
+.todo-input-button {
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+}
+
+.todo-input-button:active {
+  transform: scale(0.9);
 }

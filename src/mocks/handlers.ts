@@ -1,45 +1,37 @@
-import { rest } from 'msw';
-
-const data = { messages: [] as string[] };
+import { rest } from "msw";
+import { TODO } from "../type/types";
 
 export const handlers = [
-    rest.get('/test', (req, res, ctx) => {
-      return res(
-        ctx.status(200),
-        ctx.json({
-            messages: data.messages
-        }),
-      );
-    }),
-    rest.post('/test', (req, res, ctx) => {
-      const newMessage = `message(${Date.now()})`;
+  rest.get("/test", (req, res, ctx) => {
+    const todoList = localStorage.getItem("todoList");
+    return res(ctx.status(200), ctx.json(todoList));
+  }),
 
-      data.messages.push(newMessage);
+  rest.post("/test", (req, res, ctx) => {
+    const todoList = localStorage.getItem("todoList") ?? "[]";
 
-      return res(
-        ctx.status(200),
-        ctx.json({
-          messages: newMessage
-        }),
-      );
-    }),
-    rest.put('/test', (req, res, ctx) => {
+    req.json().then((newTodo: TODO) => {
+      const totalTodo = [...JSON.parse(todoList), newTodo];
+      localStorage.setItem("todoList", JSON.stringify(totalTodo));
+    });
 
-      return res(
-        ctx.status(200),
-        ctx.json({
-          messages: 'put!!!'
-        }),
-      );
-    }),
-    rest.delete('/test', (req, res, ctx) => {
-      data.messages = [];
+    return res(ctx.status(200));
+  }),
 
-      return res(
-        ctx.status(200),
-        ctx.json({
-          messages: 'message deleted'
-        }),
-      );
-    })
+  rest.put("/test", (req, res, ctx) => {
+    const todoList = localStorage.getItem("todoList");
+
+    // if (todoList) {
+    //   const newTodoList = JSON.parse(todoList).map((todo: TODO) => {
+    //     if (todo.date === JSON.parse(req))
+    //   });
+    // }
+    return res(ctx.status(200));
+  }),
+
+  rest.delete("/test", (req, res, ctx) => {
+    localStorage.removeItem("todoList");
+
+    return res(ctx.status(200));
+  }),
 ];
