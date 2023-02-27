@@ -128,4 +128,34 @@ h1 {
 .todo-item-info {
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+
+.todo-item-title {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0 10px;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.todo-item-date {
+  font-size: 12px;
+  margin: 0 10px;
+  width: 120px;
+}
+
+.todo-item-button {
+  margin: 0 10px;
+  background-color: white;
+  font-size: 15px;
+  font-weight: bold;
+  border: none;
+  padding: 10px;
+}
+
+.todo-item-button:active {
+  transform: scale(90%);
 }
