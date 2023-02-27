@@ -21,10 +21,16 @@ export const todosSlice = createSlice({
     setTodos: (state, action: PayloadAction<TODO[]>) => {
       state.todos = action.payload;
     },
+    deleteTodo: (state, action: PayloadAction<TODO>) => {
+      const newTodos = state.todos.filter(
+        (todo: TODO) => todo.id !== action.payload.id
+      );
+      state.todos = [...newTodos];
+    },
   },
 });
 
-export const { setTodo, setTodos } = todosSlice.actions;
+export const { setTodo, setTodos, deleteTodo } = todosSlice.actions;
 
 export const selectTodos = (state: RootState) => state.todos.todos;
 

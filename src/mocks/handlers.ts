@@ -32,7 +32,14 @@ export const handlers = [
   }),
 
   rest.delete("/test", (req, res, ctx) => {
-    localStorage.removeItem("todoList");
+    const todoList = localStorage.getItem("todoList") ?? "[]";
+
+    req.json().then((deletedTodo: TODO) => {
+      const newTodoList = JSON.parse(todoList).filter(
+        (todo: TODO) => todo.id !== deletedTodo.id
+      );
+      localStorage.setItem("todoList", JSON.stringify(newTodoList));
+    });
 
     return res(ctx.status(200));
   }),
