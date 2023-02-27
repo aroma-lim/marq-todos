@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./App.css";
 import TodoInput from "./components/TodoInput";
 import TodoItem from "./components/TodoItem";
@@ -8,11 +9,14 @@ import { TODO } from "./type/types";
 function App() {
   const dispatch = useAppDispatch();
 
-  const data = localStorage.getItem("todoList") ?? "[]";
-  const json: TODO[] = JSON.parse(data);
-  dispatch(setTodos(json));
-
   const todos = useAppSelector(selectTodos);
+
+  useEffect(() => {
+    const data = localStorage.getItem("todoList") ?? "[]";
+    const json: TODO[] = JSON.parse(data);
+
+    dispatch(setTodos(json));
+  }, [dispatch]);
 
   return (
     <div className="container">
@@ -20,7 +24,7 @@ function App() {
       <TodoInput />
       {todos.length
         ? todos.map((todo: TODO) => <TodoItem key={todo.id} todo={todo} />)
-        : json.map((todo: TODO) => <TodoItem key={todo.id} todo={todo} />)}
+        : null}
     </div>
   );
 }

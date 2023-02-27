@@ -1,9 +1,13 @@
 import { useState } from "react";
 import uuid from "react-uuid";
+import { useAppDispatch } from "../hook/hooks";
+import { setTodo } from "../store/todosSlice";
 import { TODO } from "../type/types";
 import { callApiWithData } from "../util/api";
 
 export default function TodoInput() {
+  const dispatch = useAppDispatch();
+
   const [todoValue, setTodoValue] = useState<string>("");
 
   return (
@@ -25,11 +29,15 @@ export default function TodoInput() {
               createdDate: new Date().toLocaleDateString(),
               editedDate: new Date().toLocaleDateString(),
             };
-            await callApiWithData({
+            const res = await callApiWithData({
               url: "/test",
               method: "post",
               data: newTodo,
             });
+
+            if (res.status === 200) {
+              dispatch(setTodo(newTodo));
+            }
           } catch (e) {
             console.log("e", e);
           }
