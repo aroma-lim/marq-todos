@@ -253,7 +253,6 @@ button {
 }
 
 .disabled {
-  height: 30px;
   background-color: gainsboro;
   color: gray;
   border: none;
