@@ -1,8 +1,9 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useAppDispatch } from "../hook/hooks";
 import { deleteTodo, updateTodo } from "../store/todosSlice";
 import { TODO } from "../type/types";
 import { callApiWithData } from "../util/api";
+import Modal from "./Modal";
 
 interface Props {
   todo: TODO;
@@ -12,6 +13,8 @@ const TodoItem: FC<Props> = (props: Props) => {
   const { todo } = props;
 
   const dispatch = useAppDispatch();
+
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const handleCheck = async () => {
     const newTodo: TODO = {
@@ -55,22 +58,30 @@ const TodoItem: FC<Props> = (props: Props) => {
   };
 
   return (
-    <div className="todo-item-container">
-      <div className="todo-item-info">
-        <input type="checkbox" checked={todo.done} onChange={handleCheck} />
-        <div className={`todo-item-title ${todo.done ? "checked" : ""}`}>
-          {todo.title}
+    <>
+      <div className="todo-item-container">
+        <div className="todo-item-info">
+          <input type="checkbox" checked={todo.done} onChange={handleCheck} />
+          <div className={`todo-item-title ${todo.done ? "checked" : ""}`}>
+            {todo.title}
+          </div>
+          <div className="todo-item-date">작성일: {todo.createdDate}</div>
+          <div className="todo-item-date">수정일: {todo.editedDate}</div>
         </div>
-        <div className="todo-item-date">작성일: {todo.createdDate}</div>
-        <div className="todo-item-date">수정일: {todo.editedDate}</div>
+        <div>
+          <button
+            className="todo-item-button"
+            onClick={() => setModalOpen(true)}
+          >
+            Edit
+          </button>
+          <button className="todo-item-button" onClick={handleDelete}>
+            Delete
+          </button>
+        </div>
       </div>
-      <div>
-        <button className="todo-item-button">Edit</button>
-        <button className="todo-item-button" onClick={handleDelete}>
-          Delete
-        </button>
-      </div>
-    </div>
+      {modalOpen && <Modal todo={todo} />}
+    </>
   );
 };
 
