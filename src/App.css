@@ -201,9 +201,11 @@ button {
 }
 
 .dropdown-menus {
-  font-weight: 400;
+  position: absolute;
+  top: 144px;
+  width: 350px;
+  height: 128px;
   background-color: white;
-  height: 100px;
   overflow: scroll;
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
 }
@@ -225,4 +227,24 @@ button {
 
 .dropdown-menu:hover {
   background-color: lightskyblue;
+}
+
+.refer-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.refer {
+  border: none;
+  border-radius: 20px;
+  background-color: rgb(212, 233, 252);
+  color: #0081c9;
+  width: fit-content;
+  padding: 5px 9px;
+  margin: 3px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
 }
