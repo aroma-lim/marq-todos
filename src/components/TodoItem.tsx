@@ -58,7 +58,7 @@ const TodoItem: FC<Props> = (props: Props) => {
   };
 
   return (
-    <>
+    <div className="todo-item-wrapper">
       <div className="todo-item-container">
         <div className="todo-item-info">
           <input type="checkbox" checked={todo.done} onChange={handleCheck} />
@@ -80,8 +80,15 @@ const TodoItem: FC<Props> = (props: Props) => {
           </button>
         </div>
       </div>
+      {todo.refer ? (
+        <div className="todo-item-reference">
+          {todo.refer.map((r: TODO) => (
+            <div className="todo-item-refer">@{r.title}</div>
+          ))}
+        </div>
+      ) : null}
       {modalOpen && <Modal todo={todo} setModalOpen={setModalOpen} />}
-    </>
+    </div>
   );
 };
 
