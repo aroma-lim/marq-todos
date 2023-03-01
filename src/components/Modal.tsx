@@ -142,7 +142,7 @@ const Modal: FC<Props> = (props: Props) => {
           {refer && (
             <div className="refer-container">
               {refer.map((r: TODO) => (
-                <div className="refer">
+                <div key={r.id} className="refer">
                   {r.title} &nbsp;{" "}
                   <CgClose
                     style={{ width: "10px", cursor: "pointer" }}
