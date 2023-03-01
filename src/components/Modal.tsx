@@ -78,6 +78,7 @@ const Modal: FC<Props> = (props: Props) => {
           <input
             className="modal-input"
             value={title}
+            autoFocus
             onChange={(e) => setTitle(e.target.value)}
           ></input>
 
