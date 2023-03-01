@@ -57,7 +57,7 @@ const TodoItem: FC<Props> = (props: Props) => {
   return (
     <div className="todo-item-container">
       <div className="todo-item-info">
-        <input type="checkbox" checked={todo.done} onClick={handleCheck} />
+        <input type="checkbox" checked={todo.done} onChange={handleCheck} />
         <div className={`todo-item-title ${todo.done ? "checked" : ""}`}>
           {todo.title}
         </div>
