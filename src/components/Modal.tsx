@@ -1,9 +1,9 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { TODO } from "../type/types";
-import { SlClose } from "react-icons/sl";
+import { SlClose, SlArrowDown, SlArrowUp } from "react-icons/sl";
 import { callApiWithData } from "../util/api";
-import { useAppDispatch } from "../hook/hooks";
-import { updateTodo } from "../store/todosSlice";
+import { useAppDispatch, useAppSelector } from "../hook/hooks";
+import { selectTodos, updateTodo } from "../store/todosSlice";
 
 interface Props {
   todo: TODO;
@@ -15,7 +15,19 @@ const Modal: FC<Props> = (props: Props) => {
 
   const dispatch = useAppDispatch();
 
+  const todos = useAppSelector(selectTodos);
+
   const [title, setTitle] = useState<string>(todo.title);
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [dropdownMenu, setDropdownMenu] = useState<TODO[]>();
+
+  const backgroundRef = useRef<HTMLDivElement>(null);
+
+  const handleClickBackground = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === backgroundRef.current) {
+      setModalOpen(false);
+    }
+  };
 
   const handleEdit = async () => {
     const newTodo: TODO = {
@@ -43,8 +55,17 @@ const Modal: FC<Props> = (props: Props) => {
     }
   };
 
+  useEffect(() => {
+    const newMenu = todos.filter((t: TODO) => t.id !== todo.id);
+    setDropdownMenu(newMenu);
+  }, [todos, todo.id]);
+
   return (
-    <div className="modal-overlay">
+    <div
+      className="modal-overlay"
+      ref={backgroundRef}
+      onClick={handleClickBackground}
+    >
       <div className="modal-container">
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div className="modal-close">
@@ -59,6 +80,27 @@ const Modal: FC<Props> = (props: Props) => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           ></input>
+
+          <button
+            className={`dropdown-button ${dropdownMenu ? "" : "disabled"}`}
+            disabled={!dropdownMenu}
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          >
+            참조할 TODO {dropdownOpen ? <SlArrowUp /> : <SlArrowDown />}
+          </button>
+          {dropdownOpen && (
+            <div className="dropdown-menus">
+              {dropdownMenu?.map((menu: TODO) => (
+                <div
+                  key={menu.id}
+                  className="dropdown-menu"
+                  onClick={() => setDropdownOpen(false)}
+                >
+                  @ {menu.title}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <button
