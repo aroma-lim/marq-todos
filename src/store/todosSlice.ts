@@ -27,10 +27,20 @@ export const todosSlice = createSlice({
       );
       state.todos = [...newTodos];
     },
+    updateTodo: (state, action: PayloadAction<TODO>) => {
+      const newTodos = state.todos.map((todo: TODO) => {
+        if (todo.id !== action.payload.id) {
+          return todo;
+        } else {
+          return action.payload;
+        }
+      });
+      state.todos = [...newTodos];
+    },
   },
 });
 
-export const { setTodo, setTodos, deleteTodo } = todosSlice.actions;
+export const { setTodo, setTodos, deleteTodo, updateTodo } = todosSlice.actions;
 
 export const selectTodos = (state: RootState) => state.todos.todos;
 

@@ -159,3 +159,18 @@ h1 {
 .todo-item-button:active {
   transform: scale(90%);
 }
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.checked {
+  color: grey;
+  text-decoration-line: line-through;
+}
+
+button {
+  cursor: pointer;
+}
