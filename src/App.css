@@ -203,6 +203,39 @@ button {
 
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+}
+
+.modal-close {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-bottom: 10px;
+}
+
+.modal-close-icon {
+  color: rgba(220, 20, 60, 0.6);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.modal-close-icon:hover {
+  color: crimson;
+  transform: scale(1.1);
+}
+
+.modal-close-icon:active {
+  color: crimson;
+  transform: scale(0.9);
+}
+
+.modal-input {
+  height: 30px;
+  background-color: whitesmoke;
+  border: solid 1px gainsboro;
+  margin-bottom: 10px;
+}
+
+.modal-title {
+  font-size: 15px;
+  margin-bottom: 3px;
+  font-weight: bold;
 }

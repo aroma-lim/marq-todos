@@ -80,7 +80,7 @@ const TodoItem: FC<Props> = (props: Props) => {
           </button>
         </div>
       </div>
-      {modalOpen && <Modal todo={todo} />}
+      {modalOpen && <Modal todo={todo} setModalOpen={setModalOpen} />}
     </>
   );
 };
