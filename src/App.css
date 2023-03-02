@@ -284,7 +284,7 @@ button {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 40%;
+  width: 30%;
   padding: 10px;
 }
 
@@ -300,6 +300,7 @@ button {
   align-items: center;
   font-size: 14px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .actived {

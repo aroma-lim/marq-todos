@@ -2,10 +2,11 @@ import { FC } from "react";
 
 interface Props {
   count: number;
+  onFilter: (value: string) => void;
 }
 
 const Filter: FC<Props> = (props: Props) => {
-  const { count } = props;
+  const { count, onFilter } = props;
 
   const filterName = ["All", "Active", "Completed"];
 
@@ -15,6 +16,7 @@ const Filter: FC<Props> = (props: Props) => {
       btn.className = "filter-button";
     });
     target.className = "filter-button actived";
+    onFilter(target.value);
   };
 
   return (
