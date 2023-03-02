@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
-import { useAppDispatch } from "../hook/hooks";
-import { deleteTodo, updateTodo } from "../store/todosSlice";
+import { useAppDispatch, useAppSelector } from "../hook/hooks";
+import { deleteTodo, selectTodos, updateTodo } from "../store/todosSlice";
 import { TODO } from "../type/types";
 import { callApiWithData } from "../util/api";
 import Modal from "./Modal";
@@ -13,14 +13,32 @@ const TodoItem: FC<Props> = (props: Props) => {
   const { todo } = props;
 
   const dispatch = useAppDispatch();
+  const todos = useAppSelector(selectTodos);
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
+  const verifyDisabled = (todo: TODO) => {
+    const temp = todos.filter((t: TODO) => {
+      const ids = todo.refer.map((r: TODO) => r.id);
+      return ids.includes(t.id);
+    });
+    if (temp.findIndex((t: TODO) => t.done === false) >= 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const handleCheck = async () => {
+    if (!todo.done && verifyDisabled(todo)) {
+      window.alert("참조한 할 일을 먼저 끝낸 후에 체크하십시오");
+      return;
+    }
     const newTodo: TODO = {
       id: todo.id,
       title: todo.title,
       refer: todo.refer,
+      disabled: todo.disabled,
       done: !todo.done,
       createdDate: todo.createdDate,
       editedDate: todo.editedDate,
@@ -28,7 +46,7 @@ const TodoItem: FC<Props> = (props: Props) => {
 
     try {
       const res = await callApiWithData({
-        url: "/test",
+        url: "/todo",
         method: "put",
         data: newTodo,
       });
@@ -44,7 +62,7 @@ const TodoItem: FC<Props> = (props: Props) => {
   const handleDelete = async () => {
     try {
       const res = await callApiWithData({
-        url: "/test",
+        url: "/todo",
         method: "delete",
         data: todo,
       });
@@ -83,7 +101,9 @@ const TodoItem: FC<Props> = (props: Props) => {
       {todo.refer ? (
         <div className="todo-item-reference">
           {todo.refer.map((r: TODO) => (
-            <div className="todo-item-refer">@{r.title}</div>
+            <div key={r.id} className="todo-item-refer">
+              @{r.title}
+            </div>
           ))}
         </div>
       ) : null}
