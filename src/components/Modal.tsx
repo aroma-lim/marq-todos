@@ -130,7 +130,7 @@ const Modal: FC<Props> = (props: Props) => {
             className={`dropdown-button ${
               dropdownMenu?.length ? "" : "disabled"
             }`}
-            disabled={!dropdownMenu}
+            disabled={!dropdownMenu?.length}
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
             참조할 TODO {dropdownOpen ? <SlArrowUp /> : <SlArrowDown />}

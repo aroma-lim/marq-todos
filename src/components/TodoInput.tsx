@@ -44,6 +44,7 @@ export default function TodoInput() {
       />
       <button
         className={`todo-input-button ${todoValue === "" ? "disabled" : ""}`}
+        disabled={todoValue === ""}
         onClick={handleAddTodo}
       >
         Add Todo
