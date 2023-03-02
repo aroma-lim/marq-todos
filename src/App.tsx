@@ -6,6 +6,7 @@ import TodoItem from "./components/TodoItem";
 import { useAppDispatch, useAppSelector } from "./hook/hooks";
 import { selectTodos, setTodos } from "./store/todosSlice";
 import { TODO } from "./type/types";
+import { callApi } from "./util/api";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -30,10 +31,20 @@ function App() {
   );
 
   useEffect(() => {
-    const data = localStorage.getItem("todoList") ?? "[]";
-    const json: TODO[] = JSON.parse(data);
+    async function getTodosWithApi() {
+      try {
+        const res = await callApi({
+          url: "/todo",
+          method: "get",
+        });
 
-    dispatch(setTodos(json));
+        const json: TODO[] = JSON.parse(res);
+        dispatch(setTodos(json));
+      } catch (e) {
+        console.log("e", e);
+      }
+    }
+    getTodosWithApi();
   }, [dispatch]);
 
   useEffect(() => {

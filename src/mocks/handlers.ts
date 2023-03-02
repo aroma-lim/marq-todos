@@ -31,14 +31,6 @@ export const handlers = [
     return res(ctx.status(200));
   }),
 
-  rest.put("/todos", (req, res, ctx) => {
-    req.json().then((editedTodo: TODO) => {
-      localStorage.setItem("todoList", JSON.stringify(editedTodo));
-    });
-
-    return res(ctx.status(200));
-  }),
-
   rest.delete("/todo", (req, res, ctx) => {
     const todoList = localStorage.getItem("todoList") ?? "[]";
 
