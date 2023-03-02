@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import "./App.css";
+import Filter from "./components/Filter";
 import TodoInput from "./components/TodoInput";
 import TodoItem from "./components/TodoItem";
 import { useAppDispatch, useAppSelector } from "./hook/hooks";
@@ -22,6 +23,7 @@ function App() {
     <div className="container">
       <h1>Marq-TODO</h1>
       <TodoInput />
+      <Filter count={todos.length} />
       {todos.length
         ? todos.map((todo: TODO) => <TodoItem key={todo.id} todo={todo} />)
         : null}

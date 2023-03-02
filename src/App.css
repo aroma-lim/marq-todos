@@ -10,6 +10,10 @@ h1 {
   font-size: 50px;
 }
 
+h2 {
+  font-size: 20px;
+}
+
 .todo-input-container {
   display: grid;
   grid-template-columns: 3fr 1fr;
@@ -265,4 +269,42 @@ button {
   display: flex;
   align-items: center;
   font-size: 14px;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 40%;
+  padding: 10px;
+}
+
+.filter-button {
+  border: none;
+  border-radius: 20px;
+  background-color: white;
+  color: dimgray;
+  width: fit-content;
+  padding: 5px 9px;
+  margin: 3px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.actived {
+  border: none;
+  border-radius: 20px;
+  background-color: rgb(212, 233, 252);
+  color: #0081c9;
 }
