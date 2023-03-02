@@ -99,6 +99,11 @@ const Modal: FC<Props> = (props: Props) => {
     setDropdownMenu(newMenu);
   }, [todos, todo.id, todo.refer]);
 
+  useEffect(() => {
+    document.body.setAttribute("style", "overflow: hidden");
+    return () => document.body.setAttribute("style", "overflow: auto");
+  }, []);
+
   return (
     <div
       className="modal-overlay"
