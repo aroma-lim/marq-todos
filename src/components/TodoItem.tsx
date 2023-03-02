@@ -28,6 +28,11 @@ const TodoItem: FC<Props> = (props: Props) => {
     }
   };
 
+  const findTitleWithId = (id: string) => {
+    const title = todos.find((todo: TODO) => todo.id === id);
+    return title?.title;
+  };
+
   const handleCheck = async () => {
     if (!todo.done && verifyDisabled(todo)) {
       window.alert("참조한 할 일을 먼저 끝낸 후에 체크하십시오");
@@ -100,7 +105,7 @@ const TodoItem: FC<Props> = (props: Props) => {
         <div className="todo-item-reference">
           {todo.refer.map((r: string) => (
             <div key={r} className="todo-item-refer">
-              @{r}
+              @{findTitleWithId(r)}
             </div>
           ))}
         </div>

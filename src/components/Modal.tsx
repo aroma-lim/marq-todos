@@ -85,6 +85,11 @@ const Modal: FC<Props> = (props: Props) => {
     });
   };
 
+  const findTitleWithId = (id: string) => {
+    const title = todos.find((todo: TODO) => todo.id === id);
+    return title?.title;
+  };
+
   useEffect(() => {
     const newMenu = todos
       .filter(
@@ -142,7 +147,7 @@ const Modal: FC<Props> = (props: Props) => {
             <div className="refer-container">
               {refer.map((r: string) => (
                 <div key={r} className="refer">
-                  {r} &nbsp;{" "}
+                  {findTitleWithId(r)} &nbsp;{" "}
                   <CgClose
                     style={{ width: "10px", cursor: "pointer" }}
                     onClick={() => handleDeselect(r)}
