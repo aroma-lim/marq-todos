@@ -36,7 +36,6 @@ const Modal: FC<Props> = (props: Props) => {
       id: todo.id,
       title: title,
       refer: refer,
-      disabled: todo.disabled,
       done: todo.done,
       createdDate: todo.createdDate,
       editedDate: new Date().toLocaleDateString(),

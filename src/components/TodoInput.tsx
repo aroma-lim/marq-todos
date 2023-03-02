@@ -16,7 +16,6 @@ export default function TodoInput() {
         id: uuid(),
         title: todoValue,
         refer: [],
-        disabled: false,
         done: false,
         createdDate: new Date().toLocaleDateString(),
         editedDate: new Date().toLocaleDateString(),

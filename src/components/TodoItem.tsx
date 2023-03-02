@@ -38,7 +38,6 @@ const TodoItem: FC<Props> = (props: Props) => {
       id: todo.id,
       title: todo.title,
       refer: todo.refer,
-      disabled: todo.disabled,
       done: !todo.done,
       createdDate: todo.createdDate,
       editedDate: todo.editedDate,
