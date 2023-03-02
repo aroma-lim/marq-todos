@@ -1,5 +1,9 @@
 # 마크비전 기술면접 과제 (Marq-TODOS)
 
+![image](https://user-images.githubusercontent.com/66999574/222477600-0a649ddf-887f-401e-a7a0-d030faba68b4.png)
+
+![image](https://user-images.githubusercontent.com/66999574/222477766-40896dfb-7a99-4611-a0e8-aa63292ccfc2.png)
+
 ## 시작하기
 
 `npm install` && `npm start`
