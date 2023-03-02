@@ -16,12 +16,13 @@ export default function TodoInput() {
         id: uuid(),
         title: todoValue,
         refer: [],
+        disabled: false,
         done: false,
         createdDate: new Date().toLocaleDateString(),
         editedDate: new Date().toLocaleDateString(),
       };
       const res = await callApiWithData({
-        url: "/test",
+        url: "/todo",
         method: "post",
         data: newTodo,
       });

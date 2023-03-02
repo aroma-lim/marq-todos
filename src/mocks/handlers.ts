@@ -2,12 +2,12 @@ import { rest } from "msw";
 import { TODO } from "../type/types";
 
 export const handlers = [
-  rest.get("/test", (req, res, ctx) => {
+  rest.get("/todo", (req, res, ctx) => {
     const todoList = localStorage.getItem("todoList");
     return res(ctx.status(200), ctx.json(todoList));
   }),
 
-  rest.post("/test", (req, res, ctx) => {
+  rest.post("/todo", (req, res, ctx) => {
     const todoList = localStorage.getItem("todoList") ?? "[]";
 
     req.json().then((newTodo: TODO) => {
@@ -18,7 +18,7 @@ export const handlers = [
     return res(ctx.status(200));
   }),
 
-  rest.put("/test", (req, res, ctx) => {
+  rest.put("/todo", (req, res, ctx) => {
     const todoList = localStorage.getItem("todoList") ?? "[]";
 
     req.json().then((editedTodo: TODO) => {
@@ -31,7 +31,15 @@ export const handlers = [
     return res(ctx.status(200));
   }),
 
-  rest.delete("/test", (req, res, ctx) => {
+  rest.put("/todos", (req, res, ctx) => {
+    req.json().then((editedTodo: TODO) => {
+      localStorage.setItem("todoList", JSON.stringify(editedTodo));
+    });
+
+    return res(ctx.status(200));
+  }),
+
+  rest.delete("/todo", (req, res, ctx) => {
     const todoList = localStorage.getItem("todoList") ?? "[]";
 
     req.json().then((deletedTodo: TODO) => {

@@ -20,6 +20,26 @@ export async function callApiWithData({
   return res;
 }
 
+export async function callApiWithDatas({
+  url,
+  method,
+  datas,
+}: {
+  url: string;
+  method: string;
+  datas: TODO[];
+}) {
+  const res = await fetch(url, { method, body: JSON.stringify(datas) });
+
+  if (!res.ok) {
+    throw {
+      statusText: res.statusText,
+    };
+  }
+
+  return res;
+}
+
 export async function callApi<T = any>({
   url,
   method,

@@ -36,6 +36,7 @@ const Modal: FC<Props> = (props: Props) => {
       id: todo.id,
       title: title,
       refer: refer,
+      disabled: todo.disabled,
       done: todo.done,
       createdDate: todo.createdDate,
       editedDate: new Date().toLocaleDateString(),
@@ -43,7 +44,7 @@ const Modal: FC<Props> = (props: Props) => {
 
     try {
       const res = await callApiWithData({
-        url: "/test",
+        url: "/todo",
         method: "put",
         data: newTodo,
       });
