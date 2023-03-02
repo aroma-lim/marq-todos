@@ -19,8 +19,7 @@ const TodoItem: FC<Props> = (props: Props) => {
 
   const verifyDisabled = (todo: TODO) => {
     const temp = todos.filter((t: TODO) => {
-      const ids = todo.refer.map((r: TODO) => r.id);
-      return ids.includes(t.id);
+      return todo.refer.includes(t.id);
     });
     if (temp.findIndex((t: TODO) => t.done === false) >= 0) {
       return true;
@@ -99,9 +98,9 @@ const TodoItem: FC<Props> = (props: Props) => {
       </div>
       {todo.refer ? (
         <div className="todo-item-reference">
-          {todo.refer.map((r: TODO) => (
-            <div key={r.id} className="todo-item-refer">
-              @{r.title}
+          {todo.refer.map((r: string) => (
+            <div key={r} className="todo-item-refer">
+              @{r}
             </div>
           ))}
         </div>

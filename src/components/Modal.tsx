@@ -19,7 +19,7 @@ const Modal: FC<Props> = (props: Props) => {
   const todos = useAppSelector(selectTodos);
 
   const [title, setTitle] = useState<string>(todo.title);
-  const [refer, setRefer] = useState<TODO[]>(todo.refer);
+  const [refer, setRefer] = useState<string[]>(todo.refer);
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [dropdownMenu, setDropdownMenu] = useState<TODO[]>();
 
@@ -58,7 +58,7 @@ const Modal: FC<Props> = (props: Props) => {
   };
 
   const handleSelect = (target: TODO) => {
-    setRefer([...refer, target]);
+    setRefer([...refer, target.id]);
     setDropdownMenu((prev) => {
       const newMenu = prev?.filter((t: TODO) => t.id !== target.id);
       return newMenu;
@@ -66,21 +66,21 @@ const Modal: FC<Props> = (props: Props) => {
     setDropdownOpen(false);
   };
 
-  const handleDeselect = (target: TODO) => {
+  const handleDeselect = (target: string) => {
     setDropdownMenu((prev) => {
       const newMenu = prev
         ? todos
             .filter(
               (t: TODO) =>
                 prev.findIndex((p: TODO) => p.id === t.id) >= 0 ||
-                t.id === target.id
+                t.id === target
             )
             .filter((t: TODO) => t.id !== todo.id)
         : todos.filter((t: TODO) => t.id !== todo.id);
       return newMenu;
     });
     setRefer((prev) => {
-      const newMenu = prev?.filter((t: TODO) => t.id !== target.id);
+      const newMenu = prev?.filter((t: string) => t !== target);
       return newMenu;
     });
   };
@@ -88,8 +88,7 @@ const Modal: FC<Props> = (props: Props) => {
   useEffect(() => {
     const newMenu = todos
       .filter(
-        (t: TODO) =>
-          todo.refer.findIndex((refer: TODO) => refer.id === t.id) < 0
+        (t: TODO) => todo.refer.findIndex((refer: string) => refer === t.id) < 0
       )
       .filter((t: TODO) => t.id !== todo.id);
     setDropdownMenu(newMenu);
@@ -141,9 +140,9 @@ const Modal: FC<Props> = (props: Props) => {
           )}
           {refer && (
             <div className="refer-container">
-              {refer.map((r: TODO) => (
-                <div key={r.id} className="refer">
-                  {r.title} &nbsp;{" "}
+              {refer.map((r: string) => (
+                <div key={r} className="refer">
+                  {r} &nbsp;{" "}
                   <CgClose
                     style={{ width: "10px", cursor: "pointer" }}
                     onClick={() => handleDeselect(r)}

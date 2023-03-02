@@ -1,7 +1,7 @@
 export type TODO = {
   id: string;
   title: string;
-  refer: TODO[];
+  refer: string[];
   done: boolean;
   createdDate: string;
   editedDate: string;
